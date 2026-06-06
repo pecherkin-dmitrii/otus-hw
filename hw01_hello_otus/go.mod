@@ -1,4 +1,4 @@
-module github.com/pecherkin-dmitrii/hw01_hello_otus
+module github.com/pecherkin-dmitrii/otus-hw/hw01_hello_otus
 
 go 1.26
 
