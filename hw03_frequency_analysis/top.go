@@ -8,38 +8,38 @@ import (
 
 const amountOfTopWordsToTake = 10
 
-type wordWithCount struct {
-	word  string
-	count int
+type wordWithAmount struct {
+	word   string
+	amount int
 }
 
-var wordWithCountComparator = func(a, b wordWithCount) int {
-	if n := cmp.Compare(b.count, a.count); n != 0 {
+var wordWithAmountComparator = func(a, b wordWithAmount) int {
+	if n := cmp.Compare(b.amount, a.amount); n != 0 {
 		return n
 	}
 	return cmp.Compare(a.word, b.word)
 }
 
 func Top10(str string) []string {
-	splitted := strings.Fields(str)
+	words := strings.Fields(str)
 
-	wordsMap := make(map[string]int)
-	for _, word := range splitted {
-		wordsMap[word]++
+	uniqueWordsWithAmount := make(map[string]int)
+	for _, word := range words {
+		uniqueWordsWithAmount[word]++
 	}
 
-	wordsSlice := make([]wordWithCount, 0, len(wordsMap))
-	for word, count := range wordsMap {
-		wordWithCount := wordWithCount{
-			word:  word,
-			count: count,
+	wordsWithAmount := make([]wordWithAmount, 0, len(uniqueWordsWithAmount))
+	for word, amount := range uniqueWordsWithAmount {
+		wordWithAmount := wordWithAmount{
+			word:   word,
+			amount: amount,
 		}
-		wordsSlice = append(wordsSlice, wordWithCount)
+		wordsWithAmount = append(wordsWithAmount, wordWithAmount)
 	}
-	slices.SortStableFunc(wordsSlice, wordWithCountComparator)
+	slices.SortStableFunc(wordsWithAmount, wordWithAmountComparator)
 
 	result := make([]string, 0, amountOfTopWordsToTake)
-	for i, w := range wordsSlice {
+	for i, w := range wordsWithAmount {
 		if i == cap(result) {
 			break
 		}
